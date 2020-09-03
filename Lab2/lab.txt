@@ -333,10 +333,36 @@ Time taken: 1.91 seconds, Fetched: 4 row(s)
 hive>
 
 
-Remove data from the partition. Note, removing data will not remove the partition information. In order to do a complete data cleaning, we can drop the partition after the data is removed:
+Add regular columns to a partition table. Note, we CANNOT add new columns as partition columns. There are two options when adding/removing columns from a partition table, CASCADE and RESTRICT. The commonly used CASCADE option cascades the same change to all the partitions in the table. However,  RESTRICT is the default, limiting column changes only to table metadata, which means the changes will be only applied to new partitions rather than existing partitions:
+
+hive> ALTER TABLE employee_partitioned ADD COLUMNS (work string)
+    > CASCADE;
+OK
+Time taken: 7.167 seconds
+hive>  ALTER TABLE employee_partitioned PARTITION COLUMN(year string);
+OK
+Time taken: 0.345 seconds
+hive> DESC employee_partitioned;
+OK
+name                    string
+work_place              array<string>
+gender_age              struct<gender:string,age:int>
+skills_score            map<string,int>
+depart_title            map<string,array<string>>
+work                    string
+year                    string
+month                   int
+
+# Partition Information
+# col_name              data_type               comment
+
+year                    string
+month                   int
+Time taken: 0.717 seconds, Fetched: 14 row(s)
+hive>
 
 
-    
+
     
 
 

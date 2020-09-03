@@ -34,5 +34,50 @@ default Default Hive database   hdfs://localhost:9000/user/hive/warehouse      p
 Time taken: 0.059 seconds, Fetched: 1 row(s)
 hive>
 
+-------------Table creation-----
+
+Show the data file content of employee.txt:
+
+cd /root/Hive_Labs/Lab1/data
+vim employee.txt
+
+Michael|Montreal,Toronto|Male,30|DB:80|Product:Developer^DLead
+Will|Montreal|Male,35|Perl:85|Product:Lead,Test:Lead
+Shelley|New York|Female,27|Python:80|Test:Lead,COE:Architect
+Lucy|Vancouver|Female,57|Sales:89,HR:94|Sales:Lead
+
+Example:1
+hive>  CREATE TABLE IF NOT EXISTS employee_internal (
+    > name STRING COMMENT 'this is optinal column comments',
+    > work_place ARRAY<STRING>,
+    >  gender_age STRUCT<gender:STRING,age:INT>,
+    > skills_score MAP<STRING,INT>,
+    > depart_title MAP<STRING,ARRAY<STRING>>
+    > );
+OK
+Time taken: 0.936 seconds
+hive>
+
+Example: 2
+hive> CREATE TABLE IF NOT EXISTS employee_internal (
+    > name STRING COMMENT 'this is optinal column comments',
+    > work_place ARRAY<STRING>,
+    > gender_age STRUCT<gender:STRING,age:INT>,
+    > skills_score MAP<STRING,INT>,
+    > depart_title MAP<STRING,ARRAY<STRING>>
+    > )        
+    > COMMENT 'This is an internal table'          -- This is optional table 
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY '|'                      -- Symbol to seperate columns
+    > COLLECTION ITEMS TERMINATED BY ','           -- Seperate collection elements
+    > MAP KEYS TERMINATED BY ':'                   -- Symbol to seperate keys and values
+    > STORED as TEXTFILE;
+OK
+Time taken: 0.155 seconds
+hive>
+
+
+
+
 
 

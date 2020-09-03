@@ -1,5 +1,7 @@
 Creating Database
 -----------------------
+Example1: Database Creation;
+
 hive> CREATE DATABASE myhivetest;
 OK
 Time taken: 7.812 seconds
@@ -213,6 +215,60 @@ Shelley
 Lucy
 Time taken: 0.235 seconds, Fetched: 3 row(s)
 hive>
+
+Example7: Create Partitioned table
+
+hive> CREATE TABLE employee_partitioned (
+    > name STRING,
+    > work_place ARRAY<STRING>,
+    > gender_age STRUCT<gender:STRING,age:INT>,
+    > skills_score MAP<STRING,INT>,
+    >  depart_title MAP<STRING,ARRAY<STRING>>
+    > )
+    >  PARTITIONED BY (year INT, month INT)
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY '|'
+    > COLLECTION ITEMS TERMINATED BY ','
+    > MAP KEYS TERMINATED BY ':';
+OK
+Time taken: 7.953 seconds
+hive>
+
+hive>  DESC employee_partitioned;
+OK
+name                    string
+work_place              array<string>
+gender_age              struct<gender:string,age:int>
+skills_score            map<string,int>
+depart_title            map<string,array<string>>
+year                    int
+month                   int
+
+# Partition Information
+# col_name              data_type               comment
+
+year                    int
+month                   int
+Time taken: 0.595 seconds, Fetched: 13 row(s)
+hive>
+
+Perform partition operations, such as add, remove, and rename partitions
+
+hive> ALTER TABLE employee_partitioned ADD
+    > PARTITION (year=2018, month=11) PARTITION (year=2018,
+    >       month=12);
+OK
+Time taken: 0.475 seconds
+hive>
+
+hive> SHOW PARTITIONS employee_partitioned;
+OK
+year=2018/month=11
+year=2018/month=12
+Time taken: 0.244 seconds, Fetched: 2 row(s)
+hive>
+
+
 
 
 

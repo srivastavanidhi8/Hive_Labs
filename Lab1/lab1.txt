@@ -112,6 +112,27 @@ Lucy    NULL    NULL    NULL    89      94
 Time taken: 0.333 seconds, Fetched: 4 row(s)
 hive>
 
+hive> SELECT depart_title FROM employee;
+OK
+{"Product":["Developer","Lead"]}
+{"Product":["Lead"],"Test":["Lead"]}
+{"Test":["Lead"],"COE":["Architect"]}
+{"Sales":["Lead"]}
+Time taken: 0.254 seconds, Fetched: 4 row(s)
+
+
+hive> SELECT
+    > name, depart_title['Product'] as Product, depart_title['Test']
+    > as Test,
+    >  depart_title['COE'] as COE, depart_title['Sales'] as Sales
+    > FROM employee;
+OK
+Michael ["Developer","Lead"]    NULL    NULL    NULL
+Will    ["Lead"]        ["Lead"]        NULL    NULL
+Shelley NULL    ["Lead"]        ["Architect"]   NULL
+Lucy    NULL    NULL    NULL    ["Lead"]
+Time taken: 0.334 seconds, Fetched: 4 row(s)
+hive>
 
 
 

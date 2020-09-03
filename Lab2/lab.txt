@@ -1,4 +1,4 @@
-#Creating Database
+<h1>Creating Database
 -----------------------
 hive> CREATE DATABASE myhivetest;
 OK
@@ -34,7 +34,7 @@ default Default Hive database   hdfs://localhost:9000/user/hive/warehouse      p
 Time taken: 0.059 seconds, Fetched: 1 row(s)
 hive>
 
--------------Table creation-----
+<H1>-------------Table creation-----
 
 Show the data file content of employee.txt:
 
@@ -76,6 +76,7 @@ OK
 Time taken: 0.155 seconds
 hive>
 
+Example3: Create an external table and load the data:
 
 
 

@@ -18,6 +18,78 @@ OK
 Time taken: 0.542 seconds
 hive>
 
+hive> show tables;
+OK
+employee
+names
+names_part
+names_text
+Time taken: 0.056 seconds, Fetched: 4 row(s)
+
+
+hive> describe employee;
+OK
+name                    string
+work_place              array<string>
+gender_age              struct<gender:string,age:int>
+skills_score            map<string,int>
+depart_title            map<string,array<string>>
+Time taken: 0.12 seconds, Fetched: 5 row(s)
+hive>
+
+
+Upload employee.txt in hdfs 
+(base) [root@hadoop data]# hadoop fs -ls /opt
+Found 3 items
+drwxr-xr-x   - root supergroup          0 2020-07-27 00:34 /opt/names
+drwxr-xr-x   - root hiveuser            0 2020-08-19 19:44 /opt/nidhi
+drwxr-xr-x   - root supergroup          0 2020-07-26 01:34 /opt/test
+(base) [root@hadoop data]# hadoop fs -put employee.txt /opt/test
+
+Now load data into Hive from hdfs
+hive> LOAD DATA INPATH '/opt/test/employee.txt'
+    > OVERWRITE INTO TABLE employee;
+Loading data to table default.employee
+OK
+Time taken: 8.32 seconds
+hive>
+
+Run Basic SQL Commands
+hive> SELECT work_place FROM employee;
+OK
+["Montreal","Toronto"]
+["Montreal"]
+["New York"]
+["Vancouver"]
+Time taken: 2.252 seconds, Fetched: 4 row(s)
+
+hive> SELECT
+    >  work_place[0] as col_1, work_place[1] as col_2,
+    > work_place[2] as col_3
+    > FROM employee;
+OK
+Montreal        Toronto NULL
+Montreal        NULL    NULL
+New York        NULL    NULL
+Vancouver       NULL    NULL
+Time taken: 0.567 seconds, Fetched: 4 row(s)
+hive>
+
+hive> SELECT gender_age FROM employee;
+OK
+{"gender":"Male","age":30}
+{"gender":"Male","age":35}
+{"gender":"Female","age":27}
+{"gender":"Female","age":57}
+Time taken: 0.33 seconds, Fetched: 4 row(s)
+hive> SELECT gender_age.gender, gender_age.age FROM employee;
+OK
+Male    30
+Male    35
+Female  27
+Female  57
+Time taken: 0.323 seconds, Fetched: 4 row(s)
+hive>
 
 
 

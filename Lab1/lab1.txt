@@ -1,1 +1,8 @@
-sss
+git clone https://github.com/srivastavanidhi8/Hive_Labs/
+cd Hive_Labs
+hive -f Chapter_03.hql
+Run hive command to reach hive prompt
+
+
+
+

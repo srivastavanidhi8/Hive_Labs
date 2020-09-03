@@ -101,6 +101,71 @@ OK
 Time taken: 1.05 seconds
 hive>
 
+hive> show tables;
+OK
+employee
+employee_external
+employee_internal
+names
+names_part
+names_text
+Time taken: 0.051 seconds, Fetched: 6 row(s)
+hive> describe employee_external;
+OK
+name                    string
+work_place              array<string>
+gender_age              struct<gender:string,age:int>
+skills_score            map<string,int>
+depart_title            map<string,array<string>>
+Time taken: 0.106 seconds, Fetched: 5 row(s)
+hive> select * from employee_external;
+OK
+Michael ["Montreal","Toronto"]  {"gender":"Male","age":30}      {"DB":80}      {"Product":["Developer","Lead"]}
+Will    ["Montreal"]    {"gender":"Male","age":35}      {"Perl":85}     {"Product":["Lead"],"Test":["Lead"]}
+Shelley ["New York"]    {"gender":"Female","age":27}    {"Python":80}   {"Test":["Lead"],"COE":["Architect"]}
+Lucy    ["Vancouver"]   {"gender":"Female","age":57}    {"Sales":89,"HR":94}   {"Sales":["Lead"]}
+Time taken: 1.61 seconds, Fetched: 4 row(s)
+hive>
+
+Example 4: Creating temporary tables
+
+hive> CREATE TEMPORARY TABLE IF NOT EXISTS tmp_emp1 (
+    >  name string,
+    >  work_place ARRAY<string>,
+    > gender_age STRUCT<gender:string,age:int>,
+    > skills_score MAP<string,int>,
+    > depart_title MAP<STRING,ARRAY<STRING>>
+    > );
+OK
+Time taken: 0.081 seconds
+
+Creating temporary table from existing table
+
+hive> CREATE TEMPORARY TABLE tmp_emp2 as SELECT * FROM tmp_emp1;
+
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = root_20200902202347_44e0225f-ac63-4245-9f6a-173db805da76
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1599083139145_0001, Tracking URL = http://hadoop:8088/proxy/application_1599083139145_0001/
+Kill Command = /usr/local/hadoop/bin/hadoop job  -kill job_1599083139145_0001
+Hadoop job information for Stage-1: number of mappers: 0; number of reducers: 0
+2020-09-02 20:24:07,244 Stage-1 map = 0%,  reduce = 0%
+Ended Job = job_1599083139145_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://localhost:9000/tmp/hive/root/c37bad42-dc1e-48f7-8f1f-dee926a557d7/_tmp_space.db/cb1f3590-14eb-45a7-8371-ea50fcf37312/.hive-staging_hive_2020-09-02_20-23-47_079_1654893301774554362-1/-ext-10002
+Moving data to directory hdfs://localhost:9000/tmp/hive/root/c37bad42-dc1e-48f7-8f1f-dee926a557d7/_tmp_space.db/cb1f3590-14eb-45a7-8371-ea50fcf37312
+MapReduce Jobs Launched:
+Stage-Stage-1:  HDFS Read: 0 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 23.477 seconds
+hive>
+
+Example5: Tables can also be created and populated by the results of a query in one statement, called Create-Table-As-Select (CTAS).
 
 
 

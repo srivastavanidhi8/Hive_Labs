@@ -91,6 +91,26 @@ Female  57
 Time taken: 0.323 seconds, Fetched: 4 row(s)
 hive>
 
+hive> SELECT skills_score FROM employee;
+OK
+{"DB":80}
+{"Perl":85}
+{"Python":80}
+{"Sales":89,"HR":94}
+Time taken: 0.319 seconds, Fetched: 4 row(s)
+hive> SELECT
+    > name, skills_score['DB'] as DB, skills_score['Perl'] as Perl,
+    > skills_score['Python'] as Python,
+    >  skills_score['Sales'] as Sales,
+    > skills_score['HR'] as HR
+    > FROM employee;
+OK
+Michael 80      NULL    NULL    NULL    NULL
+Will    NULL    85      NULL    NULL    NULL
+Shelley NULL    NULL    80      NULL    NULL
+Lucy    NULL    NULL    NULL    89      94
+Time taken: 0.333 seconds, Fetched: 4 row(s)
+hive>
 
 
 

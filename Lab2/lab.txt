@@ -166,6 +166,53 @@ Time taken: 23.477 seconds
 hive>
 
 Example5: Tables can also be created and populated by the results of a query in one statement, called Create-Table-As-Select (CTAS).
+hive>  CREATE TABLE ctas_employee as SELECT * FROM employee_external;
+hive> describe ctas_employee;
+OK
+name                    string
+work_place              array<string>
+gender_age              struct<gender:string,age:int>
+skills_score            map<string,int>
+depart_title            map<string,array<string>>
+Time taken: 0.146 seconds, Fetched: 5 row(s)
+hive> select * from ctas_employee;
+OK
+Michael ["Montreal","Toronto"]  {"gender":"Male","age":30}      {"DB":80}       {"Product":["Developer","Lead"]}
+Will    ["Montreal"]    {"gender":"Male","age":35}      {"Perl":85}     {"Product":["Lead"],"Test":["Lead"]}
+Shelley ["New York"]    {"gender":"Female","age":27}    {"Python":80}   {"Test":["Lead"],"COE":["Architect"]}
+Lucy    ["Vancouver"]   {"gender":"Female","age":57}    {"Sales":89,"HR":94}    {"Sales":["Lead"]}
+Time taken: 0.406 seconds, Fetched: 4 row(s)
+hive>
+
+Example6: Complex table creation
+
+hive> CREATE TABLE cte_employee as
+    > WITH r1 as (
+    > SELECT name FROM r2 WHERE name = 'Michael'
+    > ),
+    > r2 as (
+    >  SELECT name FROM employee WHERE gender_age.gender= 'Male'
+    > ),
+    > r3 as (
+    > SELECT name FROM employee WHERE gender_age.gender= 'Female'
+    > )
+    > SELECT * FROM r1
+    > UNION ALL
+    >  SELECT * FROM r3;
+
+hive> describe  cte_employee;
+OK
+name                    string
+Time taken: 0.097 seconds, Fetched: 1 row(s)
+
+
+hive> select * from cte_employee;
+OK
+Michael
+Shelley
+Lucy
+Time taken: 0.235 seconds, Fetched: 3 row(s)
+hive>
 
 
 

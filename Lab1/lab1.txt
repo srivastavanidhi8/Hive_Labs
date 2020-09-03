@@ -1,7 +1,26 @@
 git clone https://github.com/srivastavanidhi8/Hive_Labs/
 cd Hive_Labs
-hive -f Chapter_03.hql
-Run hive command to reach hive prompt
+goto /root/Hive_Labs/Lab1/scripts/
+open  Chapter_03.hql and run table create command at hive prompt
+hive>  CREATE TABLE employee (
+    > name STRING,
+    > work_place ARRAY<STRING>,
+    > gender_age STRUCT<gender:STRING,age:INT>,
+    > skills_score MAP<STRING,INT>,
+    > depart_title MAP<STRING,ARRAY<STRING>>
+    > )
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY '|'
+    > COLLECTION ITEMS TERMINATED BY ','
+    > MAP KEYS TERMINATED BY ':'
+    > STORED AS TEXTFILE;
+OK
+Time taken: 0.542 seconds
+hive>
+
+
+
+
 
 
 

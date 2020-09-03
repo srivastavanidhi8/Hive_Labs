@@ -268,6 +268,49 @@ year=2018/month=12
 Time taken: 0.244 seconds, Fetched: 2 row(s)
 hive>
 
+      -- Drop partition with PURGE at the end will remove completely
+      -- Drop partition will NOT remove data for external table
+      -- Drop partition will remove data with partition for internal table
+
+hive> ALTER TABLE employee_partitioned
+    >  DROP IF EXISTS PARTITION (year=2018, month=11);
+Dropped the partition year=2018/month=11
+OK
+Time taken: 0.933 seconds
+hive>
+
+
+hive> SHOW PARTITIONS employee_partitioned;
+OK
+year=2018/month=12
+Time taken: 0.227 seconds, Fetched: 1 row(s)
+hive>
+
+
+hive> ALTER TABLE employee_partitioned
+    > DROP IF EXISTS PARTITION (year=2017);
+OK
+Time taken: 0.243 seconds
+
+
+hive> ALTER TABLE employee_partitioned
+    > DROP IF EXISTS PARTITION (month=9);
+OK
+Time taken: 0.251 seconds
+
+
+hive> ALTER TABLE employee_partitioned
+    > PARTITION (year=2018, month=12)
+    > RENAME TO PARTITION (year=2018,month=10);
+OK
+Time taken: 0.575 seconds
+hive>
+
+hive> SHOW PARTITIONS employee_partitioned;
+OK
+year=2018/month=10
+Time taken: 0.175 seconds, Fetched: 1 row(s)
+hive>
 
 
 

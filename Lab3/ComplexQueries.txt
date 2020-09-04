@@ -102,6 +102,13 @@ Time taken: 213.574 seconds
 hive>
 
 
+(base) [root@hadoop data]# hadoop fs -ls /user/hive/warehouse/employee_id_buckets
+Found 2 items
+-rwxrwxr-x   1 root supergroup        769 2020-09-03 21:39 /user/hive/warehouse/employee_id_buckets/000000_0
+-rwxrwxr-x   1 root supergroup        704 2020-09-03 21:42 /user/hive/warehouse/employee_id_buckets/000001_1
+(base) [root@hadoop data]#
+
+
 
 
 

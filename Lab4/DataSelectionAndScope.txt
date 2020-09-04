@@ -1,1 +1,23 @@
 #Data Selection and Scope
+
+In this Lab we will cover the following topics:
+The SELECT statement
+The common JOIN statement
+The special JOIN (MAPJOIN) statement
+The set operation statement (UNION ALL)
+
+
+1. Query all or specific columns in the table:
+   -----------------------------------------------
+   
+   hive> SELECT * FROM employee;
+OK
+Michael ["Montreal","Toronto"]  {"gender":"Male","age":30}      {"DB":80}      {"Product":["Developer","Lead"]}
+Will    ["Montreal"]    {"gender":"Male","age":35}      {"Perl":85}     {"Product":["Lead"],"Test":["Lead"]}
+Shelley ["New York"]    {"gender":"Female","age":27}    {"Python":80}   {"Test":["Lead"],"COE":["Architect"]}
+Lucy    ["Vancouver"]   {"gender":"Female","age":57}    {"Sales":89,"HR":94}   {"Sales":["Lead"]}
+Time taken: 0.658 seconds, Fetched: 4 row(s)
+hive>
+
+
+

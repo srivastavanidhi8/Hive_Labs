@@ -1,1 +1,16 @@
 #Complex Queries in Hive
+
+1. Upload all the data in hdfs
+-------------------------------
+(base) [root@hadoop data]# ls
+employee_contract.txt  employee_hr.txt  employee_id.txt  employee.txt
+(base) [root@hadoop data]# hadoop fs -mkdir /opt/hivelabs
+(base) [root@hadoop data]# hadoop fs -put *.txt /opt/hivelabs
+(base) [root@hadoop data]# hadoop fs -ls /opt/hivelabs
+Found 4 items
+-rw-r--r--   1 root supergroup        227 2020-09-03 21:00 /opt/hivelabs/employee.txt
+-rw-r--r--   1 root supergroup        391 2020-09-03 21:00 /opt/hivelabs/employee_contract.txt
+-rw-r--r--   1 root supergroup        133 2020-09-03 21:00 /opt/hivelabs/employee_hr.txt
+-rw-r--r--   1 root supergroup       1473 2020-09-03 21:00 /opt/hivelabs/employee_id.txt
+(base) [root@hadoop data]#
+

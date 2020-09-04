@@ -1,3 +1,7 @@
+#Lab1 preview
+#Task1: Create a employee table and load its data from CSV stored on hdfs file system.
+#Task2: Execute SQL queries on this table.
+
 git clone https://github.com/srivastavanidhi8/Hive_Labs/
 cd Hive_Labs
 goto /root/Hive_Labs/Lab1/scripts/

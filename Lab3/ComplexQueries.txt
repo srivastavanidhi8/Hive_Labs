@@ -38,6 +38,8 @@ OK
 Time taken: 0.951 seconds
 hive>
 
+************************************************
+
 Bucket
 -------
 bucket is another technique to cluster datasets into more manageable parts to optimize query performance. Different from partition, the bucket corresponds to
@@ -107,6 +109,46 @@ Found 2 items
 -rwxrwxr-x   1 root supergroup        769 2020-09-03 21:39 /user/hive/warehouse/employee_id_buckets/000000_0
 -rwxrwxr-x   1 root supergroup        704 2020-09-03 21:42 /user/hive/warehouse/employee_id_buckets/000001_1
 (base) [root@hadoop data]#
+
+***********************************************
+HIVE VIEWS
+------------
+In Hive, views are logical data structures that can be used to simplify queries by either hiding the complexities such as joins, subqueries, and filters or by flatting the data. Unlike some RDBMS, Hive views do not store data or get materialized. Once the Hive view is created, its schema is frozen immediately. Subsequent changes to the underlying tables (for example, adding a column) will not be reflected in the view’s schema.
+
+hive> CREATE VIEW employee_skills
+    > AS
+    > SELECT name, skills_score['DB'] AS DB,
+    > skills_score['Perl'] AS Perl,
+    > skills_score['Python'] AS Python,
+    > skills_score['Sales'] as Sales,
+    > skills_score['HR'] as HR
+    > FROM employee;
+OK
+Time taken: 10.004 seconds
+hive>
+
+Alter the views’ properties:
+------------------------------
+hive> ALTER VIEW employee_skills
+    > SET TBLPROPERTIES ('comment' = 'This is a view');
+OK
+Time taken: 0.231 seconds
+
+Redefine views:
+-----------------------
+
+hive> ALTER VIEW employee_skills AS
+    > SELECT * from employee ;
+OK
+Time taken: 0.416 seconds
+
+Drop views:
+------------------
+
+hive> DROP VIEW employee_skills;
+OK
+Time taken: 0.416 seconds
+hive>
 
 
 

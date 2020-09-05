@@ -19,17 +19,3 @@ Lucy    ["Vancouver"]   {"gender":"Female","age":57}    {"Sales":89,"HR":94}   {
 Time taken: 0.658 seconds, Fetched: 4 row(s)
 hive>
 
-SQL JOINS
---------------
-
-(base) [root@hadoop ~]# hadoop fs -ls /opt/hivelabs
-Found 3 items
--rw-r--r--   1 root supergroup        227 2020-09-03 21:00 /opt/hivelabs/employee.txt
--rw-r--r--   1 root supergroup        391 2020-09-03 21:00 /opt/hivelabs/employee_contract.txt
--rw-r--r--   1 root supergroup        133 2020-09-03 21:00 /opt/hivelabs/employee_hr.txt
-(base) [root@hadoop ~]#
-
-
-
-
-
